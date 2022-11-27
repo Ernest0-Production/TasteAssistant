@@ -37,7 +37,7 @@ struct HomeView: View {
                         )
                         .interactiveDismissDisabled()
                     }
-                } else if editMode == .active {
+                } else if editMode == .active, !foods.isEmpty {
                     let isSelected = selectedFoods.count == foods.count
                     SelectAllButton(isSelected: isSelected) {
                         if isSelected {
@@ -61,7 +61,7 @@ struct HomeView: View {
                     EditButton()
                 }
 
-                if editMode == .active {
+                if editMode == .active, !foods.isEmpty {
                     FoodSelectionToolbar(
                         allFoods: $foods,
                         selectedFoods: $selectedFoods
