@@ -8,17 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		F97A914A29336B730095F585 /* TasteAssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A914929336B730095F585 /* TasteAssistantApp.swift */; };
-		F97A914C29336B730095F585 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A914B29336B730095F585 /* ContentView.swift */; };
+		F97A914C29336B730095F585 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A914B29336B730095F585 /* HomeView.swift */; };
 		F97A914E29336B740095F585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F97A914D29336B740095F585 /* Assets.xcassets */; };
 		F97A915129336B740095F585 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F97A915029336B740095F585 /* Preview Assets.xcassets */; };
+		F97A915829339D760095F585 /* FoodSelectionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A915729339D760095F585 /* FoodSelectionToolbar.swift */; };
+		F97A915C29339D920095F585 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A915B29339D920095F585 /* Food.swift */; };
+		F97A915E29339DA10095F585 /* FoodRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A915D29339DA10095F585 /* FoodRowView.swift */; };
+		F97A916029339DAE0095F585 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A915F29339DAE0095F585 /* TagView.swift */; };
+		F97A916229339DBE0095F585 /* FoodCreatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916129339DBE0095F585 /* FoodCreatorView.swift */; };
+		F97A916429339DCC0095F585 /* FoodNameEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916329339DCC0095F585 /* FoodNameEditorView.swift */; };
+		F97A916629339DD60095F585 /* FoodTagsEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916529339DD60095F585 /* FoodTagsEditorView.swift */; };
+		F97A916829339DE60095F585 /* AddFoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916729339DE60095F585 /* AddFoodButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F97A914629336B730095F585 /* TasteAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F97A914929336B730095F585 /* TasteAssistantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteAssistantApp.swift; sourceTree = "<group>"; };
-		F97A914B29336B730095F585 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F97A914B29336B730095F585 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F97A914D29336B740095F585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F97A915029336B740095F585 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F97A915729339D760095F585 /* FoodSelectionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSelectionToolbar.swift; sourceTree = "<group>"; };
+		F97A915B29339D920095F585 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		F97A915D29339DA10095F585 /* FoodRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRowView.swift; sourceTree = "<group>"; };
+		F97A915F29339DAE0095F585 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		F97A916129339DBE0095F585 /* FoodCreatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCreatorView.swift; sourceTree = "<group>"; };
+		F97A916329339DCC0095F585 /* FoodNameEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodNameEditorView.swift; sourceTree = "<group>"; };
+		F97A916529339DD60095F585 /* FoodTagsEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTagsEditorView.swift; sourceTree = "<group>"; };
+		F97A916729339DE60095F585 /* AddFoodButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +67,10 @@
 		F97A914829336B730095F585 /* TasteAssistant */ = {
 			isa = PBXGroup;
 			children = (
+				F97A915A29339D850095F585 /* Views */,
+				F97A915929339D810095F585 /* Models */,
 				F97A914929336B730095F585 /* TasteAssistantApp.swift */,
-				F97A914B29336B730095F585 /* ContentView.swift */,
+				F97A914B29336B730095F585 /* HomeView.swift */,
 				F97A914D29336B740095F585 /* Assets.xcassets */,
 				F97A914F29336B740095F585 /* Preview Content */,
 			);
@@ -65,6 +83,28 @@
 				F97A915029336B740095F585 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F97A915929339D810095F585 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F97A915B29339D920095F585 /* Food.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F97A915A29339D850095F585 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F97A915729339D760095F585 /* FoodSelectionToolbar.swift */,
+				F97A915D29339DA10095F585 /* FoodRowView.swift */,
+				F97A915F29339DAE0095F585 /* TagView.swift */,
+				F97A916129339DBE0095F585 /* FoodCreatorView.swift */,
+				F97A916329339DCC0095F585 /* FoodNameEditorView.swift */,
+				F97A916529339DD60095F585 /* FoodTagsEditorView.swift */,
+				F97A916729339DE60095F585 /* AddFoodButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +177,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F97A914C29336B730095F585 /* ContentView.swift in Sources */,
+				F97A914C29336B730095F585 /* HomeView.swift in Sources */,
+				F97A916029339DAE0095F585 /* TagView.swift in Sources */,
+				F97A916629339DD60095F585 /* FoodTagsEditorView.swift in Sources */,
+				F97A915C29339D920095F585 /* Food.swift in Sources */,
+				F97A915829339D760095F585 /* FoodSelectionToolbar.swift in Sources */,
+				F97A916829339DE60095F585 /* AddFoodButton.swift in Sources */,
+				F97A915E29339DA10095F585 /* FoodRowView.swift in Sources */,
 				F97A914A29336B730095F585 /* TasteAssistantApp.swift in Sources */,
+				F97A916429339DCC0095F585 /* FoodNameEditorView.swift in Sources */,
+				F97A916229339DBE0095F585 /* FoodCreatorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
