@@ -19,6 +19,8 @@
 		F97A916429339DCC0095F585 /* FoodNameEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916329339DCC0095F585 /* FoodNameEditorView.swift */; };
 		F97A916629339DD60095F585 /* FoodTagsEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916529339DD60095F585 /* FoodTagsEditorView.swift */; };
 		F97A916829339DE60095F585 /* AddFoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916729339DE60095F585 /* AddFoodButton.swift */; };
+		F97A916D2933A9E40095F585 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916C2933A9E40095F585 /* FlowLayout.swift */; };
+		F97A916F2933C6410095F585 /* SelectAllButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916E2933C6410095F585 /* SelectAllButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		F97A916329339DCC0095F585 /* FoodNameEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodNameEditorView.swift; sourceTree = "<group>"; };
 		F97A916529339DD60095F585 /* FoodTagsEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTagsEditorView.swift; sourceTree = "<group>"; };
 		F97A916729339DE60095F585 /* AddFoodButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodButton.swift; sourceTree = "<group>"; };
+		F97A916C2933A9E40095F585 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		F97A916E2933C6410095F585 /* SelectAllButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAllButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +74,6 @@
 				F97A915A29339D850095F585 /* Views */,
 				F97A915929339D810095F585 /* Models */,
 				F97A914929336B730095F585 /* TasteAssistantApp.swift */,
-				F97A914B29336B730095F585 /* HomeView.swift */,
 				F97A914D29336B740095F585 /* Assets.xcassets */,
 				F97A914F29336B740095F585 /* Preview Content */,
 			);
@@ -96,6 +99,7 @@
 		F97A915A29339D850095F585 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F97A916B2933A9DD0095F585 /* Layouts */,
 				F97A915729339D760095F585 /* FoodSelectionToolbar.swift */,
 				F97A915D29339DA10095F585 /* FoodRowView.swift */,
 				F97A915F29339DAE0095F585 /* TagView.swift */,
@@ -103,8 +107,18 @@
 				F97A916329339DCC0095F585 /* FoodNameEditorView.swift */,
 				F97A916529339DD60095F585 /* FoodTagsEditorView.swift */,
 				F97A916729339DE60095F585 /* AddFoodButton.swift */,
+				F97A916E2933C6410095F585 /* SelectAllButton.swift */,
+				F97A914B29336B730095F585 /* HomeView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		F97A916B2933A9DD0095F585 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				F97A916C2933A9E40095F585 /* FlowLayout.swift */,
+			);
+			path = Layouts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,10 +191,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F97A916D2933A9E40095F585 /* FlowLayout.swift in Sources */,
 				F97A914C29336B730095F585 /* HomeView.swift in Sources */,
 				F97A916029339DAE0095F585 /* TagView.swift in Sources */,
 				F97A916629339DD60095F585 /* FoodTagsEditorView.swift in Sources */,
 				F97A915C29339D920095F585 /* Food.swift in Sources */,
+				F97A916F2933C6410095F585 /* SelectAllButton.swift in Sources */,
 				F97A915829339D760095F585 /* FoodSelectionToolbar.swift in Sources */,
 				F97A916829339DE60095F585 /* AddFoodButton.swift in Sources */,
 				F97A915E29339DA10095F585 /* FoodRowView.swift in Sources */,

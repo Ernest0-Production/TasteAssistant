@@ -13,21 +13,35 @@ struct FoodRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(food.name)
-                .padding(.horizontal, 16)
 
             if !food.tags.isEmpty {
-                #warning("Автоперенос тэгов вместо скрола")
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        ForEach(food.tags) { tag in
-                            TagView(tag: tag)
-                        }
+                FlowLayout(itemSpacing: 4, lineSpacing: 4) {
+                    ForEach(food.tags) { tag in
+                        TagView(tag: tag)
                     }
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(.horizontal, 16)
                 }
             }
         }
+        .padding(.horizontal, 16)
         .padding(.vertical, 8)
+    }
+}
+
+struct FoodRowViewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        FoodRowView(food: Food(
+            name: "NAME",
+            tags: [
+                Food.Tag(name: "ONE", backgroundColor: .red),
+                Food.Tag(name: "TWO", backgroundColor: .clear),
+                Food.Tag(name: "THREE", backgroundColor: .blue),
+                Food.Tag(name: "FOUR", backgroundColor: .yellow),
+                Food.Tag(name: "FIVE", backgroundColor: .clear),
+                Food.Tag(name: "SIX", backgroundColor: .clear),
+                Food.Tag(name: "SEVEN", backgroundColor: .clear),
+            ]
+        ))
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .previewLayout(.fixed(width: 300, height: 100))
     }
 }

@@ -21,7 +21,6 @@ struct HomeView: View {
         NavigationView {
             List(selection: $selectedFoods) {
                 #warning("Кнопка группировки по тэгам")
-
                 if editMode == .inactive {
                     AddFoodButton {
                         isFoodCreatorPresented = true
@@ -38,18 +37,22 @@ struct HomeView: View {
                         )
                         .interactiveDismissDisabled()
                     }
+                } else if editMode == .active {
+                    let isSelected = selectedFoods.count == foods.count
+                    SelectAllButton(isSelected: isSelected) {
+                        if isSelected {
+                            selectedFoods = []
+                        } else {
+                            selectedFoods = Set(foods.map(\.id))
+                        }
+                    }
                 }
-
-                #warning("Кнопка ВЫБРАТЬ ВСЕ")
 
             #warning("Редактировать созданные фуды")
-
-                ForEach(foods) { food in
-                    FoodRowView(food: food)
-                        .listRowInsets(EdgeInsets())
-                        .tag(food.id)
-                        .disabled(editMode == .active)
-                }
+                FoodsRowsView(
+                    foods: foods,
+                    isEnabled: editMode == .active
+                )
             }
             .navigationTitle("Foods")
             .navigationBarTitleDisplayMode(.large)
@@ -72,11 +75,34 @@ struct HomeView: View {
     }
 }
 
+private struct FoodsRowsView: View {
+    let foods: [Food]
+    let isEnabled: Bool
+
+    var body: some View {
+        ForEach(foods) { food in
+            FoodRowView(food: food)
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color(.systemGray6))
+                .tag(food.id)
+                .disabled(isEnabled)
+        }
+    }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(foods: [
             Food(
-                name: "Asda",
+                name: "APPLE",
+                tags: [
+                    Food.Tag(name: "asdasd", backgroundColor: .clear),
+                    Food.Tag(name: "12weqqwe", backgroundColor: .red),
+                ]
+            ),
+
+            Food(
+                name: "BANANA",
                 tags: [
                     Food.Tag(name: "asdasd", backgroundColor: .clear),
                     Food.Tag(name: "12weqqwe", backgroundColor: .red),
