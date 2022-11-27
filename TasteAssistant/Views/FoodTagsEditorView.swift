@@ -259,15 +259,16 @@ struct AddTagButton: View {
 
     var body: some View {
         Button(action: action, label: {
-            Image(systemName: "plus.rectangle.fill")
-                .tint(Color.gray)
+            Text("+ NEW TAG")
+                .bold()
+                .tint(Color(.darkGray))
                 .padding(.vertical, 8)
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 40)
+                .frame(maxWidth: .infinity)
                 .background {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(.systemGray3))
+                        .fill(Color(.systemGray5))
                 }
-                .padding(1)
         })
         .buttonStyle(.borderless) // BUG: Без задания стиля при нажатии удаляются все тэги...
     }
@@ -331,12 +332,6 @@ struct FoodTagsEditorView_Previews: PreviewProvider {
     }
 
     static var previews: some View {
-//        TagEditorView(
-//            tag: Food.Tag(name: "ONE", backgroundColor: .red),
-//            onEdit: {},
-//            onDelete: {}
-//        )
-
         Example()
     }
 }
