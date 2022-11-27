@@ -38,6 +38,7 @@ struct FoodCreatorView: View {
                         .focused($newTagNameFocus)
                 }
             }
+            .scrollDismissesKeyboard(.immediately)
             .navigationTitle("Add Food")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

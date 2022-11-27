@@ -7,41 +7,153 @@
 
 import SwiftUI
 
+struct FoodTagCreatorView: View {
+    let onSubmit: (Food.Tag) -> Void
+    var onCancel: () -> Void = {}
+
+    @State var name: String = ""
+    @State var color: Color = .clear
+
+    @FocusState var fieldFocus: Bool
+
+    var body: some View {
+        HStack {
+            TextField("Type tag name...", text: $name)
+                .focused($fieldFocus)
+                .onSubmit {
+                    guard !name.isEmpty else { return }
+
+                    let newTag = Food.Tag(
+                        name: name,
+                        backgroundColor: color
+                    )
+
+                    onSubmit(newTag)
+
+                    clear()
+                    fieldFocus = true
+                }
+
+            ColorPicker("Tag color", selection: $color)
+                .labelsHidden()
+        }
+        .colorPickerKeyboardToolbar(on: $fieldFocus, $color)
+        .onChange(of: fieldFocus) { isFocused in
+            // BUG
+            if !isFocused && name.isEmpty {
+                onCancel()
+            }
+        }
+    }
+
+    func clear() {
+        name = ""
+        color = .clear
+    }
+}
+
+extension View {
+    func colorPickerKeyboardToolbar(
+        on focus: FocusState<Bool>.Binding,
+        _ binding: Binding<Color>
+    ) -> some View {
+        toolbar {
+            if focus.wrappedValue {
+                ToolbarItem(placement: .keyboard) {
+                    ColorPicker("Color", selection: binding)
+                }
+            }
+        }
+    }
+}
+
+struct FoodTagEditorView: View {
+    @Binding var tag: Food.Tag?
+
+    @State var name: String = ""
+    @State var color: Color = .clear
+
+    @FocusState var fieldFocus: Bool
+
+    var body: some View {
+        HStack {
+            TextField("Type tag name...", text: $name)
+                .focused($fieldFocus)
+                .onSubmit {
+                    guard !name.isEmpty else { return }
+
+                    let newTag = Food.Tag(
+                        name: name,
+                        backgroundColor: color
+                    )
+
+                    tag = newTag
+
+                    clear()
+                }
+
+            ColorPicker("Tag color", selection: $color)
+                .labelsHidden()
+
+            RemoveTagButton {
+                tag = nil
+                clear()
+            }
+        }
+        .colorPickerKeyboardToolbar(on: $fieldFocus, $color)
+        .onAppear {
+            if let tag {
+                name = tag.name
+                color = tag.backgroundColor
+            }
+        }
+    }
+
+    func clear() {
+        name = ""
+        color = .clear
+    }
+}
+
 struct FoodTagsEditorView: View {
     @Binding var tags: [Food.Tag]
 
-    @State var newTagName: String = ""
-    @State var newTagColor: Color = .clear
-
-    @FocusState var newTagNameFocus: Bool
-
     @State var mode: Mode = .idle
+
+    @FocusState var fieldFocus
 
     enum Mode {
         case idle
-        case newTag
-        case editingTag(Food.Tag.ID)
+        case tagCreation
+        case tagEditing(Food.Tag.ID)
+
+        var editingTag: Food.Tag.ID? {
+            switch self {
+            case let .tagEditing(tagId):
+                return tagId
+            case .idle, .tagCreation:
+                return nil
+            }
+        }
+
+        var isIdle: Bool {
+            switch self {
+            case .idle:
+                return true
+            case .tagEditing, .tagCreation:
+                return false
+            }
+        }
     }
 
     var shouldShowTags: Bool {
         switch mode {
         case .idle:
             return true
-        case .newTag:
+        case .tagCreation:
             return !tags.isEmpty
-        case let .editingTag(tagId):
+        case let .tagEditing(tagId):
             return !tags.filter { $0.id != tagId }.isEmpty
-        }
-    }
-
-    var visibleTags: [Food.Tag] {
-        switch mode {
-        case .idle:
-            return tags
-        case .newTag:
-            return tags
-        case let .editingTag(tagId):
-            return tags.filter { $0.id != tagId }
         }
     }
 
@@ -51,107 +163,93 @@ struct FoodTagsEditorView: View {
             case .idle:
                 EmptyView()
 
-            case .newTag:
-                HStack {
-                    TextField("Type tag name...", text: $newTagName)
-                        .focused($newTagNameFocus)
-                        .onSubmit {
-                            guard !newTagName.isEmpty else { return }
-
-                            let newTag = Food.Tag(
-                                name: newTagName,
-                                backgroundColor: newTagColor
-                            )
-
-                            tags.insert(newTag, at: .zero)
-
-                            newTagName = ""
-                            newTagColor = .clear
-                            mode = .idle
-                            newTagNameFocus = true
-                        }
-                        .onChange(of: newTagNameFocus) { isFocused in
-                            if !isFocused && newTagName.isEmpty {
-                                mode = .idle
-                            }
-                        }
-
-                    ColorPicker("Tag color", selection: $newTagColor)
-                        .labelsHidden()
-                }
-
-            case let .editingTag(tagId):
-                HStack {
-                    TextField("Type tag name...", text: $newTagName)
-                        .focused($newTagNameFocus)
-                        .onSubmit {
-                            guard !newTagName.isEmpty else { return }
-
-                            guard let editingTagIndex = tags.firstIndex(where: { $0.id == tagId }) else {
-                                return
-                            }
-
-                            let newTag = Food.Tag(
-                                name: newTagName,
-                                backgroundColor: newTagColor
-                            )
-
-                            tags[editingTagIndex] = newTag
-
-                            newTagName = ""
-                            newTagColor = .clear
-                            mode = .idle
-                            newTagNameFocus = false
-                        }
-
-                    ColorPicker("Tag color", selection: $newTagColor)
-                        .labelsHidden()
-
-                    RemoveTagButton {
-                        tags.removeAll(where: { $0.id == tagId })
-                        newTagName = ""
-                        newTagColor = .clear
+            case .tagCreation:
+                FoodTagCreatorView(
+                    onSubmit: { newTag in
+                        tags.insert(newTag, at: .zero)
+                    },
+                    onCancel: {
                         mode = .idle
-                        newTagNameFocus = false
                     }
+                )
+                .focused($fieldFocus)
+                .onAppear {
+                    fieldFocus = true
                 }
-            }
-        }
-        .scrollDismissesKeyboard(.immediately)
-        .toolbar {
-            if newTagNameFocus {
-                ToolbarItem(placement: .keyboard) {
-                    ColorPicker("Color", selection: $newTagColor)
+
+            case let .tagEditing(tagId):
+                FoodTagEditorView(tag: Binding(
+                    get: { tags.first { $0.id == tagId } },
+                    set: { newValue in
+                        guard let tagIndex = tags.firstIndex(where: { $0.id == tagId }) else {
+                            return
+                        }
+
+                        if let newValue {
+                            tags[tagIndex] = newValue
+                        } else {
+                            tags.remove(at: tagIndex)
+                        }
+
+                        mode = .idle
+                    }
+                ))
+                .focused($fieldFocus)
+                .onAppear {
+                    fieldFocus = true
                 }
             }
         }
 
         if shouldShowTags {
             FlowLayout(itemSpacing: 8, lineSpacing: 8) {
-                if case .idle = mode {
+                if mode.isIdle {
                     AddTagButton {
-                        newTagNameFocus = true
-                        mode = .newTag
+                        mode = .tagCreation
                     }
                 }
 
-                if !visibleTags.isEmpty {
-                    ForEach(visibleTags) { tag in
-                        TagEditorView(
-                            tag: tag,
-                            onEdit: {
-                                newTagNameFocus = true
-                                mode = .editingTag(tag.id)
-                                newTagName = tag.name
-                                newTagColor = tag.backgroundColor
-                            },
-                            onDelete: {
-                                tags.removeAll(where: { $0.id == tag.id })
+                EditableTagsView(
+                    tags: $tags,
+                    editingTag: Binding(
+                        get: { mode.editingTag },
+                        set: { tagId in
+                            if let tagId {
+                                mode = .tagEditing(tagId)
+                            } else {
+                                mode = .idle
                             }
-                        )
-                    }
-                }
+                        }
+                    )
+                )
             }
+        }
+    }
+}
+
+struct EditableTagsView: View {
+    @Binding var tags: [Food.Tag]
+    @Binding var editingTag: Food.Tag.ID?
+
+    var visibleTags: [Food.Tag] {
+        if let editingTag {
+            return tags.filter { $0.id != editingTag }
+        } else {
+            return tags
+        }
+    }
+
+    var body: some View {
+        ForEach(visibleTags) { tag in
+            EditableTagView(
+                tag: tag,
+                onEdit: {
+                    editingTag = tag.id
+                },
+                onDelete: {
+                    tags.removeAll(where: { $0.id == tag.id })
+                }
+            )
         }
     }
 }
@@ -175,7 +273,7 @@ struct AddTagButton: View {
     }
 }
 
-struct TagEditorView: View {
+struct EditableTagView: View {
     let tag: Food.Tag
     let onEdit: () -> Void
     let onDelete: () -> Void
