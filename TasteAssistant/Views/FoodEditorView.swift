@@ -1,20 +1,21 @@
 //
-//  FoodCreatorView.swift
+//  FoodEditorView.swift
 //  TasteAssistant
 //
-//  Created by Ernest Babayan on 27.11.2022.
+//  Created by Ernest Babayan on 28.11.2022.
 //
 
 import SwiftUI
 
-struct FoodCreatorView: View {
-    let onSave: (Food) -> Void
+struct FoodEditorView: View {
+    @Binding var food: Food?
     let onCancel: () -> Void
 
     @State var foodName: String = ""
     @State var tags: [Food.Tag] = []
 
     @State var isConfirmCancellationPresented = false
+    @State var isConfirmDeletionPresented = false
 
     @FocusState var foodNameFocus: Bool
     @FocusState var newTagNameFocus: Bool
@@ -37,9 +38,22 @@ struct FoodCreatorView: View {
                     FoodTagsEditorView(tags: $tags)
                         .focused($newTagNameFocus)
                 }
+
+                DeleteFoodButton {
+                    isConfirmDeletionPresented = true
+                }
+                .confirmationDialog(
+                    "Confirm deletion",
+                    isPresented: $isConfirmDeletionPresented,
+                    actions: {
+                        Button("Delete", role: .destructive) {
+                            food = nil
+                        }
+                    }
+                )
             }
             .scrollDismissesKeyboard(.immediately)
-            .navigationTitle("Add Food")
+            .navigationTitle("Edit Food")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .cancel) {
@@ -54,22 +68,26 @@ struct FoodCreatorView: View {
                             }
                         },
                         message: {
-                            Text("Are you sure?")
+                            Text("All changes will be discarded. Are you sure?")
                         }
                     )
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Create") {
-                        let newFood = Food(
+                    Button("Save") {
+                        food = Food(
                             name: foodName,
                             tags: tags
                         )
-
-                        onSave(newFood)
                     }
                     .disabled(foodName == "")
                 }
+            }
+        }
+        .onAppear {
+            if let food {
+                foodName = food.name
+                tags = food.tags
             }
         }
     }

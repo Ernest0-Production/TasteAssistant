@@ -12,6 +12,7 @@ struct HomeView: View {
     @State var foods: [Food] = []
 
     @State var isFoodCreatorPresented = false
+    @State var presentedFood: Food?
 
     @State var selectedFoods: Set<Food.ID> = []
 
@@ -28,8 +29,10 @@ struct HomeView: View {
                     .sheet(isPresented: $isFoodCreatorPresented) {
                         FoodCreatorView(
                             onSave: { newFood in
-                                foods.insert(newFood, at: .zero)
                                 isFoodCreatorPresented = false
+                                withAnimation {
+                                    foods.insert(newFood, at: .zero)
+                                }
                             },
                             onCancel: {
                                 isFoodCreatorPresented = false
@@ -48,11 +51,21 @@ struct HomeView: View {
                     }
                 }
 
-            #warning("Редактировать созданные фуды")
                 FoodsRowsView(
                     foods: foods,
-                    isEnabled: editMode == .active
+                    isDisabled: editMode == .active,
+                    onTap: { food in
+                        presentedFood = food
+                    }
                 )
+                .sheet(item: $presentedFood) { food in
+                    FoodEditorView(
+                        food: $foods[id: food.id].onSet { presentedFood = nil },
+                        onCancel: {
+                            presentedFood = nil
+                        }
+                    )
+                }
             }
             .navigationTitle("Foods")
             .navigationBarTitleDisplayMode(.large)
@@ -77,15 +90,20 @@ struct HomeView: View {
 
 private struct FoodsRowsView: View {
     let foods: [Food]
-    let isEnabled: Bool
+    let isDisabled: Bool
+    let onTap: (Food) -> Void
 
     var body: some View {
         ForEach(foods) { food in
             FoodRowView(food: food)
                 .listRowInsets(EdgeInsets())
-                .listRowBackground(Color(.systemGray6))
                 .tag(food.id)
-                .disabled(isEnabled)
+                .disabled(isDisabled)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle()) // Для того чтоб срабатывал обработчик на прозрачном контенте
+                .onTapGesture {
+                    onTap(food)
+                }
         }
     }
 }

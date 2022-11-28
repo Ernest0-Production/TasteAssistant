@@ -20,5 +20,101 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E2F270BC-BC78-4A85-80FA-146D84E53E29"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TasteAssistant/Views/Helpers/Array+Identifiable.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "subscript(id:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E2F270BC-BC78-4A85-80FA-146D84E53E29 - a3073da1275fa465"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Swift.Array&lt;Element where Element: Swift.Identifiable&gt;.subscript.getter : (id: Element.ID) -&gt; Swift.Optional&lt;Element&gt;"
+                  moduleName = "TasteAssistant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ernest0n/Projects/TasteAssistant/TasteAssistant/Views/Helpers/Array+Identifiable.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "168">
+               </Location>
+               <Location
+                  uuid = "E2F270BC-BC78-4A85-80FA-146D84E53E29 - 46f71540089fd822"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (&#x3c4;_0_0) -&gt; Swift.Bool in Swift.Array&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Identifiable&gt;.subscript.getter : (id: &#x3c4;_0_0.ID) -&gt; Swift.Optional&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "TasteAssistant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ernest0n/Projects/TasteAssistant/TasteAssistant/Views/Helpers/Array+Identifiable.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "192">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "75F9C159-9E0C-4ED5-854E-B3AF87C25AA0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TasteAssistant/Views/Helpers/Array+Identifiable.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "subscript(id:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "75F9C159-9E0C-4ED5-854E-B3AF87C25AA0 - c9d2c198f8ffa0e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Swift.Array&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Identifiable&gt;.subscript.setter : (id: &#x3c4;_0_0.ID) -&gt; Swift.Optional&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "TasteAssistant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ernest0n/Projects/TasteAssistant/TasteAssistant/Views/Helpers/Array+Identifiable.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "352">
+               </Location>
+               <Location
+                  uuid = "75F9C159-9E0C-4ED5-854E-B3AF87C25AA0 - 46f71540089fd85f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (&#x3c4;_0_0) -&gt; Swift.Bool in Swift.Array&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Identifiable&gt;.subscript.setter : (id: &#x3c4;_0_0.ID) -&gt; Swift.Optional&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "TasteAssistant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ernest0n/Projects/TasteAssistant/TasteAssistant/Views/Helpers/Array+Identifiable.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "192">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

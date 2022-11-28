@@ -41,7 +41,6 @@ struct FoodRowViewProvider_Previews: PreviewProvider {
                 Food.Tag(name: "SEVEN", backgroundColor: .clear),
             ]
         ))
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .previewLayout(.fixed(width: 300, height: 100))
+        .previewLayout(.sizeThatFits)
     }
 }

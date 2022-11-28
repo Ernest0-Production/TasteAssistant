@@ -21,6 +21,15 @@
 		F97A916829339DE60095F585 /* AddFoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916729339DE60095F585 /* AddFoodButton.swift */; };
 		F97A916D2933A9E40095F585 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916C2933A9E40095F585 /* FlowLayout.swift */; };
 		F97A916F2933C6410095F585 /* SelectAllButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A916E2933C6410095F585 /* SelectAllButton.swift */; };
+		F97A9171293538850095F585 /* FoodTagCreatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A9170293538850095F585 /* FoodTagCreatorView.swift */; };
+		F97A9173293538960095F585 /* FoodTagEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A9172293538960095F585 /* FoodTagEditorView.swift */; };
+		F97A9175293539650095F585 /* RemoveTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A9174293539650095F585 /* RemoveTagButton.swift */; };
+		F97A9177293539710095F585 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A9176293539710095F585 /* AddTagButton.swift */; };
+		F97A9179293539B30095F585 /* EditableTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A9178293539B30095F585 /* EditableTagView.swift */; };
+		F97A917B293542740095F585 /* FoodEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A917A293542740095F585 /* FoodEditorView.swift */; };
+		F97A917E293546200095F585 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A917D293546200095F585 /* Array+Identifiable.swift */; };
+		F97A918029354DB60095F585 /* Binding+get+set.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A917F29354DB60095F585 /* Binding+get+set.swift */; };
+		F9E0EB51293554930070DBA3 /* DeleteFoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E0EB50293554930070DBA3 /* DeleteFoodButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +48,15 @@
 		F97A916729339DE60095F585 /* AddFoodButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodButton.swift; sourceTree = "<group>"; };
 		F97A916C2933A9E40095F585 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		F97A916E2933C6410095F585 /* SelectAllButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAllButton.swift; sourceTree = "<group>"; };
+		F97A9170293538850095F585 /* FoodTagCreatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTagCreatorView.swift; sourceTree = "<group>"; };
+		F97A9172293538960095F585 /* FoodTagEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTagEditorView.swift; sourceTree = "<group>"; };
+		F97A9174293539650095F585 /* RemoveTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveTagButton.swift; sourceTree = "<group>"; };
+		F97A9176293539710095F585 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
+		F97A9178293539B30095F585 /* EditableTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTagView.swift; sourceTree = "<group>"; };
+		F97A917A293542740095F585 /* FoodEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodEditorView.swift; sourceTree = "<group>"; };
+		F97A917D293546200095F585 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
+		F97A917F29354DB60095F585 /* Binding+get+set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+get+set.swift"; sourceTree = "<group>"; };
+		F9E0EB50293554930070DBA3 /* DeleteFoodButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFoodButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +117,7 @@
 		F97A915A29339D850095F585 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F97A917C293546190095F585 /* Helpers */,
 				F97A916B2933A9DD0095F585 /* Layouts */,
 				F97A915729339D760095F585 /* FoodSelectionToolbar.swift */,
 				F97A915D29339DA10095F585 /* FoodRowView.swift */,
@@ -106,9 +125,16 @@
 				F97A916129339DBE0095F585 /* FoodCreatorView.swift */,
 				F97A916329339DCC0095F585 /* FoodNameEditorView.swift */,
 				F97A916529339DD60095F585 /* FoodTagsEditorView.swift */,
+				F97A9178293539B30095F585 /* EditableTagView.swift */,
+				F97A9176293539710095F585 /* AddTagButton.swift */,
+				F97A9174293539650095F585 /* RemoveTagButton.swift */,
 				F97A916729339DE60095F585 /* AddFoodButton.swift */,
 				F97A916E2933C6410095F585 /* SelectAllButton.swift */,
 				F97A914B29336B730095F585 /* HomeView.swift */,
+				F97A917A293542740095F585 /* FoodEditorView.swift */,
+				F9E0EB50293554930070DBA3 /* DeleteFoodButton.swift */,
+				F97A9170293538850095F585 /* FoodTagCreatorView.swift */,
+				F97A9172293538960095F585 /* FoodTagEditorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -119,6 +145,15 @@
 				F97A916C2933A9E40095F585 /* FlowLayout.swift */,
 			);
 			path = Layouts;
+			sourceTree = "<group>";
+		};
+		F97A917C293546190095F585 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F97A917D293546200095F585 /* Array+Identifiable.swift */,
+				F97A917F29354DB60095F585 /* Binding+get+set.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,15 +228,24 @@
 			files = (
 				F97A916D2933A9E40095F585 /* FlowLayout.swift in Sources */,
 				F97A914C29336B730095F585 /* HomeView.swift in Sources */,
+				F97A9171293538850095F585 /* FoodTagCreatorView.swift in Sources */,
 				F97A916029339DAE0095F585 /* TagView.swift in Sources */,
 				F97A916629339DD60095F585 /* FoodTagsEditorView.swift in Sources */,
+				F97A918029354DB60095F585 /* Binding+get+set.swift in Sources */,
 				F97A915C29339D920095F585 /* Food.swift in Sources */,
+				F97A9173293538960095F585 /* FoodTagEditorView.swift in Sources */,
 				F97A916F2933C6410095F585 /* SelectAllButton.swift in Sources */,
+				F97A917E293546200095F585 /* Array+Identifiable.swift in Sources */,
+				F97A9179293539B30095F585 /* EditableTagView.swift in Sources */,
 				F97A915829339D760095F585 /* FoodSelectionToolbar.swift in Sources */,
+				F97A9175293539650095F585 /* RemoveTagButton.swift in Sources */,
 				F97A916829339DE60095F585 /* AddFoodButton.swift in Sources */,
+				F9E0EB51293554930070DBA3 /* DeleteFoodButton.swift in Sources */,
 				F97A915E29339DA10095F585 /* FoodRowView.swift in Sources */,
+				F97A917B293542740095F585 /* FoodEditorView.swift in Sources */,
 				F97A914A29336B730095F585 /* TasteAssistantApp.swift in Sources */,
 				F97A916429339DCC0095F585 /* FoodNameEditorView.swift in Sources */,
+				F97A9177293539710095F585 /* AddTagButton.swift in Sources */,
 				F97A916229339DBE0095F585 /* FoodCreatorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
