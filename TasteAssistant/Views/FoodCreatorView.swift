@@ -11,13 +11,13 @@ struct FoodCreatorView: View {
     let onSave: (Food) -> Void
     let onCancel: () -> Void
 
-    @State var foodName: String = ""
-    @State var tags: [Food.Tag] = []
+    @State private var foodName: String = ""
+    @State private var tags: [Food.Tag] = []
 
-    @State var isConfirmCancellationPresented = false
+    @State private var isConfirmCancellationPresented = false
 
-    @FocusState var foodNameFocus: Bool
-    @FocusState var newTagNameFocus: Bool
+    @FocusState private var foodNameFocus: Bool
+    @FocusState private var newTagNameFocus: Bool
 
     var body: some View {
         NavigationView {

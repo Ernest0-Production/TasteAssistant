@@ -22,7 +22,9 @@ struct HomeView: View {
         NavigationView {
             List(selection: $selectedFoods) {
                 #warning("Кнопка группировки по тэгам")
-                if editMode == .inactive {
+
+                switch editMode {
+                case .inactive:
                     AddFoodButton {
                         isFoodCreatorPresented = true
                     }
@@ -40,27 +42,47 @@ struct HomeView: View {
                         )
                         .interactiveDismissDisabled()
                     }
-                } else if editMode == .active, !foods.isEmpty {
-                    let isSelected = selectedFoods.count == foods.count
-                    SelectAllButton(isSelected: isSelected) {
-                        if isSelected {
-                            selectedFoods = []
-                        } else {
-                            selectedFoods = Set(foods.map(\.id))
+                case .active:
+                    if !foods.isEmpty {
+                        let isSelected = selectedFoods.count == foods.count
+                        SelectAllButton(isSelected: isSelected) {
+                            if isSelected {
+                                selectedFoods = []
+                            } else {
+                                selectedFoods = Set(foods.map(\.id))
+                            }
                         }
                     }
+
+                default:
+                    Text("Something went wrong")
                 }
 
                 FoodsRowsView(
                     foods: foods,
-                    isDisabled: editMode == .active,
                     onTap: { food in
-                        presentedFood = food
+                        switch editMode {
+                        case .active:
+                            selectedFoods.insertOrRemoveIfExist(food.id)
+
+                        case .inactive:
+                            presentedFood = food
+
+                        default:
+                            break
+                        }
                     }
                 )
                 .sheet(item: $presentedFood) { food in
                     FoodEditorView(
-                        food: $foods[id: food.id].onSet { presentedFood = nil },
+                        food: food,
+                        onSave: { updatedFood in
+                            foods[id: food.id] = updatedFood
+                            presentedFood = nil
+                        },
+                        onDelete: {
+                            presentedFood = nil
+                        },
                         onCancel: {
                             presentedFood = nil
                         }
@@ -90,20 +112,28 @@ struct HomeView: View {
 
 private struct FoodsRowsView: View {
     let foods: [Food]
-    let isDisabled: Bool
-    let onTap: (Food) -> Void
+    private(set) var onTap: (Food) -> Void = { _ in }
 
     var body: some View {
         ForEach(foods) { food in
             FoodRowView(food: food)
                 .listRowInsets(EdgeInsets())
                 .tag(food.id)
-                .disabled(isDisabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .contentShape(Rectangle()) // Для того чтоб срабатывал обработчик на прозрачном контенте
                 .onTapGesture {
                     onTap(food)
                 }
+        }
+    }
+}
+
+extension Set {
+    mutating func insertOrRemoveIfExist(_ member: Element) {
+        if contains(member) {
+            remove(member)
+        } else {
+            insert(member)
         }
     }
 }

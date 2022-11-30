@@ -71,26 +71,37 @@ struct FoodTagsEditorView: View {
                 }
 
             case let .tagEditing(tagId):
-                FoodTagEditorView(tag: $tags[id: tagId].onSet { mode = .idle })
+                if let tag = tags[id: tagId] {
+                    FoodTagEditorView(
+                        tag: tag,
+                        onSave: { updatedTag in
+                            tags[id: tagId] = updatedTag
+                            mode = .idle
+                        },
+                        onDelete:  {
+                            tags[id: tagId] = nil
+                            mode = .idle
+                        }
+                    )
                     .focused($fieldFocus)
                     .transition(inputTransition)
                     .onAppear {
                         fieldFocus = true
                     }
+                }
             }
 
             EditableTagsView(
                 tags: $tags,
-                editingTag: Binding(
-                    get: { mode.editingTag },
-                    set: { tagId in
+                editingTag: Binding
+                    .get { mode.editingTag }
+                    .set { tagId in
                         if let tagId {
                             mode = .tagEditing(tagId)
                         } else {
                             mode = .idle
                         }
                     }
-                )
             )
         }
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F95E8D4D2937F805000DDBC8 /* DeleteSelectedFoodsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D4C2937F805000DDBC8 /* DeleteSelectedFoodsButton.swift */; };
 		F97A914A29336B730095F585 /* TasteAssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A914929336B730095F585 /* TasteAssistantApp.swift */; };
 		F97A914C29336B730095F585 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A914B29336B730095F585 /* HomeView.swift */; };
 		F97A914E29336B740095F585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F97A914D29336B740095F585 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F95E8D4C2937F805000DDBC8 /* DeleteSelectedFoodsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSelectedFoodsButton.swift; sourceTree = "<group>"; };
 		F97A914629336B730095F585 /* TasteAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F97A914929336B730095F585 /* TasteAssistantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteAssistantApp.swift; sourceTree = "<group>"; };
 		F97A914B29336B730095F585 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				F97A917C293546190095F585 /* Helpers */,
 				F97A916B2933A9DD0095F585 /* Layouts */,
 				F97A915729339D760095F585 /* FoodSelectionToolbar.swift */,
+				F95E8D4C2937F805000DDBC8 /* DeleteSelectedFoodsButton.swift */,
 				F97A915D29339DA10095F585 /* FoodRowView.swift */,
 				F97A915F29339DAE0095F585 /* TagView.swift */,
 				F97A916129339DBE0095F585 /* FoodCreatorView.swift */,
@@ -245,6 +248,7 @@
 				F97A917B293542740095F585 /* FoodEditorView.swift in Sources */,
 				F97A914A29336B730095F585 /* TasteAssistantApp.swift in Sources */,
 				F97A916429339DCC0095F585 /* FoodNameEditorView.swift in Sources */,
+				F95E8D4D2937F805000DDBC8 /* DeleteSelectedFoodsButton.swift in Sources */,
 				F97A9177293539710095F585 /* AddTagButton.swift in Sources */,
 				F97A916229339DBE0095F585 /* FoodCreatorView.swift in Sources */,
 			);

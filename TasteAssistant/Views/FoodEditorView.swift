@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct FoodEditorView: View {
-    @Binding var food: Food?
+    let food: Food
+    let onSave: (Food) -> Void
+    let onDelete: () -> Void
     let onCancel: () -> Void
 
-    @State var foodName: String = ""
-    @State var tags: [Food.Tag] = []
+    @State private var foodName: String = ""
+    @State private var tags: [Food.Tag] = []
 
-    @State var isConfirmCancellationPresented = false
-    @State var isConfirmDeletionPresented = false
+    @State private var isConfirmCancellationPresented = false
+    @State private var isConfirmDeletionPresented = false
 
-    @FocusState var foodNameFocus: Bool
-    @FocusState var newTagNameFocus: Bool
+    @FocusState private var foodNameFocus: Bool
+    @FocusState private var newTagNameFocus: Bool
 
     var body: some View {
         NavigationView {
@@ -47,7 +49,7 @@ struct FoodEditorView: View {
                     isPresented: $isConfirmDeletionPresented,
                     actions: {
                         Button("Delete", role: .destructive) {
-                            food = nil
+                            onDelete()
                         }
                     }
                 )
@@ -75,20 +77,41 @@ struct FoodEditorView: View {
 
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        food = Food(
+                        let updatedFood = Food(
                             name: foodName,
                             tags: tags
                         )
+
+                        onSave(updatedFood)
                     }
                     .disabled(foodName == "")
                 }
             }
         }
-        .onAppear {
-            if let food {
-                foodName = food.name
-                tags = food.tags
-            }
+        .onFirstAppear {
+            foodName = food.name
+            tags = food.tags
+        }
+    }
+}
+
+
+extension View {
+    func onFirstAppear(_ perform: @escaping () -> Void) -> some View {
+        modifier(FirstAppearViewModifier(perform: perform))
+    }
+}
+
+private struct FirstAppearViewModifier: ViewModifier {
+    @State var didAppear = false
+    let perform: () -> Void
+
+    func body(content: Content) -> some View {
+        content.onAppear {
+            guard !didAppear else { return }
+            didAppear = true
+
+            perform()
         }
     }
 }

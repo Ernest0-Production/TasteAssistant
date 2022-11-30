@@ -19,7 +19,7 @@ struct FoodSelectionToolbar: ToolbarContent {
 
             Spacer()
 
-            Button("Delete", role: .destructive) {
+            DeleteSelectedFoodsButton {
                 allFoods.removeAll { selectedFoods.contains($0.id) }
                 selectedFoods = []
             }
