@@ -45,15 +45,17 @@ struct FoodTagsEditorView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            switch mode {
-            case .idle:
+        Layout(
+            mode: mode,
+
+            onIdle: {
                 AddTagButton {
                     mode = .tagCreation
                 }
                 .transition(inputTransition)
+            },
 
-            case .tagCreation:
+            onTagCreation: {
                 FoodTagCreatorView(
                     onSubmit: { newTag in
                         withAnimation {
@@ -66,11 +68,12 @@ struct FoodTagsEditorView: View {
                 )
                 .focused($fieldFocus)
                 .transition(inputTransition)
-                .onAppear {
+                .onFirstAppear {
                     fieldFocus = true
                 }
+            },
 
-            case let .tagEditing(tagId):
+            onTagEditing: { tagId in
                 if let tag = tags[id: tagId] {
                     FoodTagEditorView(
                         tag: tag,
@@ -85,48 +88,18 @@ struct FoodTagsEditorView: View {
                     )
                     .focused($fieldFocus)
                     .transition(inputTransition)
-                    .onAppear {
+                    .onFirstAppear {
                         fieldFocus = true
                     }
                 }
-            }
+            },
 
-            EditableTagsView(
-                tags: $tags,
-                editingTag: Binding
-                    .get { mode.editingTag }
-                    .set { tagId in
-                        if let tagId {
-                            mode = .tagEditing(tagId)
-                        } else {
-                            mode = .idle
-                        }
-                    }
-            )
-        }
-    }
-}
-
-struct EditableTagsView: View {
-    @Binding var tags: [Food.Tag]
-    @Binding var editingTag: Food.Tag.ID?
-
-    var visibleTags: [Food.Tag] {
-        if let editingTag {
-            return tags.filter { $0.id != editingTag }
-        } else {
-            return tags
-        }
-    }
-
-    var body: some View {
-        if !visibleTags.isEmpty {
-            FlowLayout(itemSpacing: 8, lineSpacing: 8) {
-                ForEach(visibleTags) { tag in
+            footer: {
+                TagsLayout(tags: tags.filter { $0.id != mode.editingTag }) { tag in
                     EditableTagView(
                         tag: tag,
                         onEdit: {
-                            editingTag = tag.id
+                            mode = .tagEditing(tag.id)
                         },
                         onDelete: {
                             tags.removeAll(where: { $0.id == tag.id })
@@ -134,7 +107,52 @@ struct EditableTagsView: View {
                     )
                 }
             }
-            .animation(.default, value: visibleTags.map(\.id))
+        )
+    }
+}
+
+private extension FoodTagsEditorView {
+    struct TagsLayout<Content: View>: View {
+        let tags: [Food.Tag]
+        let content: (Food.Tag) -> Content
+
+        var body: some View {
+            if !tags.isEmpty {
+                FlowLayout(itemSpacing: 8, lineSpacing: 8) {
+                    ForEach(tags) { tag in
+                        content(tag)
+                    }
+                }
+                .animation(.default, value: tags.map(\.id))
+            }
+        }
+    }
+
+    struct Layout<
+        IdleContent: View,
+        TagCreationContent: View,
+        TagEditingContent: View,
+        FooterContent: View
+    >: View {
+        let mode: Mode
+        @ViewBuilder var onIdle: IdleContent
+        @ViewBuilder var onTagCreation: TagCreationContent
+        @ViewBuilder var onTagEditing: (Food.Tag.ID) -> TagEditingContent
+        @ViewBuilder var footer: FooterContent
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: 16) {
+                switch mode {
+                case .idle:
+                    onIdle
+                case .tagCreation:
+                    onTagCreation
+                case let .tagEditing(tagId):
+                    onTagEditing(tagId)
+                }
+
+                footer
+            }
         }
     }
 }

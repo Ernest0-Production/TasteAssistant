@@ -17,7 +17,7 @@ struct FoodRowView: View {
             if !food.tags.isEmpty {
                 FlowLayout(itemSpacing: 4, lineSpacing: 4) {
                     ForEach(food.tags) { tag in
-                        TagView(tag: tag)
+                        FoodTagView(tag: tag)
                     }
                 }
             }
