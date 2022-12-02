@@ -11,6 +11,7 @@
 		F95E8D5229392AED000DDBC8 /* FoodsRowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D5129392AED000DDBC8 /* FoodsRowsView.swift */; };
 		F95E8D5929393536000DDBC8 /* TagBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D5829393536000DDBC8 /* TagBackground.swift */; };
 		F95E8D5B29394A44000DDBC8 /* View+onFirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D5A29394A44000DDBC8 /* View+onFirstAppear.swift */; };
+		F95E8D5D293A84B5000DDBC8 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D5C293A84B5000DDBC8 /* Table.swift */; };
 		F97A914A29336B730095F585 /* TasteAssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A914929336B730095F585 /* TasteAssistantApp.swift */; };
 		F97A914C29336B730095F585 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A914B29336B730095F585 /* HomeView.swift */; };
 		F97A914E29336B740095F585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F97A914D29336B740095F585 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 		F95E8D5129392AED000DDBC8 /* FoodsRowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsRowsView.swift; sourceTree = "<group>"; };
 		F95E8D5829393536000DDBC8 /* TagBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBackground.swift; sourceTree = "<group>"; };
 		F95E8D5A29394A44000DDBC8 /* View+onFirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+onFirstAppear.swift"; sourceTree = "<group>"; };
+		F95E8D5C293A84B5000DDBC8 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		F97A914629336B730095F585 /* TasteAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F97A914929336B730095F585 /* TasteAssistantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteAssistantApp.swift; sourceTree = "<group>"; };
 		F97A914B29336B730095F585 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				F97A915B29339D920095F585 /* Food.swift */,
+				F95E8D5C293A84B5000DDBC8 /* Table.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				F97A9175293539650095F585 /* RemoveTagButton.swift in Sources */,
 				F97A916829339DE60095F585 /* AddFoodButton.swift in Sources */,
 				F9E0EB51293554930070DBA3 /* DeleteFoodButton.swift in Sources */,
+				F95E8D5D293A84B5000DDBC8 /* Table.swift in Sources */,
 				F95E8D5229392AED000DDBC8 /* FoodsRowsView.swift in Sources */,
 				F97A915E29339DA10095F585 /* FoodRowView.swift in Sources */,
 				F97A917B293542740095F585 /* FoodEditorView.swift in Sources */,

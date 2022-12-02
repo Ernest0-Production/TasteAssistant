@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct FoodCreatorView: View {
+    @Environment(\.foods) @Binding var foodsTable
+    @Environment(\.tags) @Binding var tagsTable
+
     let onSave: (Food) -> Void
     let onCancel: () -> Void
 
@@ -55,8 +58,11 @@ struct FoodCreatorView: View {
                     Button("Create") {
                         let newFood = Food(
                             name: foodName,
-                            tags: tags
+                            tags: Set(tags.map(\.id))
                         )
+
+                        foodsTable.insert(newFood)
+                        tagsTable.insert(tags)
 
                         onSave(newFood)
                     }
@@ -98,5 +104,11 @@ private extension FoodCreatorView {
                 }
             }
         }
+    }
+}
+
+struct FoodCreatorView_Previews: PreviewProvider {
+    static var previews: some View {
+        FoodCreatorView(onSave: { _ in }, onCancel: {})
     }
 }

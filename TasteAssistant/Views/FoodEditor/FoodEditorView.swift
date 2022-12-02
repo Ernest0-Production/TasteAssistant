@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct FoodEditorView: View {
+    @Environment(\.foods) @Binding var foodsTable
+    @Environment(\.tags) @Binding var tagsTable
+
     let food: Food
     let onSave: (Food) -> Void
     let onDelete: () -> Void
@@ -62,8 +65,11 @@ struct FoodEditorView: View {
                     Button("Save") {
                         let updatedFood = Food(
                             name: foodName,
-                            tags: tags
+                            tags: Set(tags.map(\.id))
                         )
+
+                        foodsTable.insert(updatedFood)
+                        tagsTable.insert(tags)
 
                         onSave(updatedFood)
                     }
@@ -73,7 +79,7 @@ struct FoodEditorView: View {
         )
         .onFirstAppear {
             foodName = food.name
-            tags = food.tags
+            tags = food.tags.compactMap { tagsTable[id: $0]}
         }
         .confirmationDialog(
             "Confirm deletion",
@@ -119,5 +125,11 @@ private extension FoodEditorView {
                 }
             }
         }
+    }
+}
+
+struct FoodEditorView_Previews: PreviewProvider {
+    static var previews: some View {
+        Text("Hello, world!")
     }
 }

@@ -12,7 +12,7 @@ import SwiftUI
 #warning("Грузить откуда то данные")
 
 struct HomeView: View {
-    @State var foods: [Food] = []
+    @Environment(\.foods) var foodsTable
 
     @State var isFoodCreatorPresented = false
     @State var presentedFood: Food?
@@ -23,21 +23,15 @@ struct HomeView: View {
                 isFoodCreatorPresented = true
             }
 
-            FoodsRowsView(
-                foods: foods,
-                onTap: { food in
-                    presentedFood = food
-                }
-            )
+            FoodsRowsView(onTap: { food in
+                presentedFood = food
+            })
             .navigationTitle("Foods")
         })
         .sheet(isPresented: $isFoodCreatorPresented) {
             FoodCreatorView(
-                onSave: { newFood in
+                onSave: { _ in
                     isFoodCreatorPresented = false
-                    withAnimation {
-                        foods.insert(newFood, at: .zero)
-                    }
                 },
                 onCancel: {
                     isFoodCreatorPresented = false
@@ -48,8 +42,7 @@ struct HomeView: View {
         .sheet(item: $presentedFood) { food in
             FoodEditorView(
                 food: food,
-                onSave: { updatedFood in
-                    foods[id: food.id] = updatedFood
+                onSave: { _ in
                     presentedFood = nil
                 },
                 onDelete: {
@@ -64,9 +57,7 @@ struct HomeView: View {
 }
 
 private extension HomeView {
-    struct Layout<
-        Content: View
-    >: View {
+    struct Layout<Content: View>: View {
         @ViewBuilder var content: Content
 
         var body: some View {
@@ -80,26 +71,8 @@ private extension HomeView {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(foods: [
-            Food(
-                name: "APPLE",
-                tags: [
-                    Food.Tag(name: "asdasd", backgroundColor: .clear),
-                    Food.Tag(name: "12weqqwe", backgroundColor: .red),
-                ]
-            ),
-
-            Food(
-                name: "BANANA",
-                tags: [
-                    Food.Tag(name: "asdasd", backgroundColor: .clear),
-                    Food.Tag(name: "12weqqwe", backgroundColor: .red),
-                ]
-            )
-        ])
-
-        FoodCreatorView(onSave: { _ in }, onCancel: { })
+        HomeView()
     }
 }

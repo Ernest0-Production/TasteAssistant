@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct FoodRowView: View {
+    @Environment(\.tags) @Binding var tagsTable
+
     let food: Food
+
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(food.name)
 
-            if !food.tags.isEmpty {
+            let tags = food.tags.compactMap { tagsTable[id: $0] }
+            if !tags.isEmpty {
                 FlowLayout(itemSpacing: 4, lineSpacing: 4) {
-                    ForEach(food.tags) { tag in
+                    ForEach(tags) { tag in
                         FoodTagView(tag: tag)
                     }
                 }
@@ -32,13 +36,13 @@ struct FoodRowViewProvider_Previews: PreviewProvider {
         FoodRowView(food: Food(
             name: "NAME",
             tags: [
-                Food.Tag(name: "ONE", backgroundColor: .red),
-                Food.Tag(name: "TWO", backgroundColor: .clear),
-                Food.Tag(name: "THREE", backgroundColor: .blue),
-                Food.Tag(name: "FOUR", backgroundColor: .yellow),
-                Food.Tag(name: "FIVE", backgroundColor: .clear),
-                Food.Tag(name: "SIX", backgroundColor: .clear),
-                Food.Tag(name: "SEVEN", backgroundColor: .clear),
+                "ONE",
+                "TWO",
+                "THREE",
+                "FOUR",
+                "FIVE",
+                "SIX",
+                "SEVEN",
             ]
         ))
         .previewLayout(.sizeThatFits)

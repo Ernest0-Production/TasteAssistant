@@ -12,9 +12,9 @@ struct Food: Identifiable {
 
     var name: String
 
-    var tags: [Tag]
+    var tags: Set<Tag.ID>
 
-    struct Tag: Identifiable {
+    struct Tag: Identifiable, Hashable {
         var id: String { name }
 
         let name: String
