@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct FoodTagView: View {
-    let tag: Food.Tag
+    let name: String
+    let backgroundColor: Color
 
     var body: some View {
         Layout(
             label: {
-                Text(tag.name)
+                Text(name)
             },
 
             background: {
-                TagBackground(color: tag.backgroundColor)
+                TagBackground(color: backgroundColor)
             }
         )
     }
@@ -38,5 +39,17 @@ private extension FoodTagView {
                     background
                 }
         }
+    }
+}
+
+struct FoodTagView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            FoodTagView(name: "NAME", backgroundColor: .red)
+            FoodTagView(name: "NAME", backgroundColor: .blue)
+            FoodTagView(name: "NAME", backgroundColor: .clear)
+        }
+        .padding()
+        .previewLayout(.sizeThatFits)
     }
 }

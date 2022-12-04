@@ -9,13 +9,14 @@ import SwiftUI
 
 #warning("Импортировать из файла данные")
 #warning("Кнопка группировки по тэгам")
-#warning("Грузить откуда то данные")
+
 
 struct HomeView: View {
-    @Environment(\.foods) var foodsTable
+    @Environment(\.foods) @Binding private var foodTable
+    @Environment(\.tags) @Binding private var tagTable
 
-    @State var isFoodCreatorPresented = false
-    @State var presentedFood: Food?
+    @State private var isFoodCreatorPresented = false
+    @State private var presentedFood: Food?
 
     var body: some View {
         Layout(content: {
@@ -23,32 +24,29 @@ struct HomeView: View {
                 isFoodCreatorPresented = true
             }
 
-            FoodsRowsView(onTap: { food in
-                presentedFood = food
-            })
+            FoodsRowsView(
+                foods: foodTable.all()
+                    .sorted(by: \.name.localizedLowercase)
+                    .map { food in
+                        FoodsRowsView.Food(
+                            model: food,
+                            tagTable: tagTable,
+                            onTap: { presentedFood = food }
+                        )
+                    }
+            )
             .navigationTitle("Foods")
         })
         .sheet(isPresented: $isFoodCreatorPresented) {
-            FoodCreatorView(
-                onSave: { _ in
-                    isFoodCreatorPresented = false
-                },
-                onCancel: {
-                    isFoodCreatorPresented = false
-                }
-            )
+            FoodCreatorView(onComplete: {
+                isFoodCreatorPresented = false
+            })
             .interactiveDismissDisabled()
         }
         .sheet(item: $presentedFood) { food in
             FoodEditorView(
                 food: food,
-                onSave: { _ in
-                    presentedFood = nil
-                },
-                onDelete: {
-                    presentedFood = nil
-                },
-                onCancel: {
+                onComplete: {
                     presentedFood = nil
                 }
             )
@@ -68,6 +66,35 @@ private extension HomeView {
                 .navigationBarTitleDisplayMode(.large)
             }
         }
+    }
+}
+
+private extension FoodsRowsView.Food {
+    init(
+        model food: Food,
+        tagTable: Table<Food.Tag>,
+        onTap: @escaping () -> Void
+    ) {
+        self.init(
+            id: food.id,
+            title: food.name,
+            tags: food.tags
+                .lazy
+                .compactMap(tagTable.element)
+                .compactMap(FoodRowView.Tag.init(model:))
+                .sorted(by: \.name.localizedLowercase),
+            onTap: onTap
+        )
+    }
+}
+
+private extension FoodRowView.Tag {
+    init(model tag: Food.Tag) {
+        self.init(
+            id: tag.id,
+            name: tag.name,
+            backgroundColor: tag.backgroundColor
+        )
     }
 }
 

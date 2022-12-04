@@ -8,18 +8,37 @@
 import SwiftUI
 
 struct FoodTagsEditorView: View {
-    @Binding var tags: [Food.Tag]
+    let tags: [Tag]
+    let onAdd: (Tag.New) -> Void
+
+    struct Tag: Identifiable {
+        let id: AnyHashable
+        let name: String
+        let backgroundColor: Color
+
+        let onUpdate: (Update) -> Void
+
+        struct Update {
+            let name: String
+            let backgroundColor: Color
+        }
+
+        let onDelete: () -> Void
+
+        struct New {
+            let name: String
+            let backgroundColor: Color
+        }
+    }
 
     @State var mode: Mode = .idle
-
-    @FocusState var fieldFocus
 
     enum Mode {
         case idle
         case tagCreation
-        case tagEditing(Food.Tag.ID)
+        case tagEditing(Tag.ID)
 
-        var editingTag: Food.Tag.ID? {
+        var editingTag: Tag.ID? {
             switch self {
             case let .tagEditing(tagId):
                 return tagId
@@ -38,6 +57,8 @@ struct FoodTagsEditorView: View {
         }
     }
 
+    @FocusState var fieldFocus
+
     var inputTransition: AnyTransition {
         .opacity
         .combined(with: .scale)
@@ -49,7 +70,7 @@ struct FoodTagsEditorView: View {
             mode: mode,
 
             onIdle: {
-                AddTagButton {
+                AddFoodTagButton {
                     mode = .tagCreation
                 }
                 .transition(inputTransition)
@@ -57,10 +78,11 @@ struct FoodTagsEditorView: View {
 
             onTagCreation: {
                 FoodTagCreatorView(
-                    onSubmit: { newTag in
-                        withAnimation {
-                            tags.insert(newTag, at: .zero)
-                        }
+                    onSubmit: { newValue in
+                        onAdd(Tag.New(
+                            name: newValue.name,
+                            backgroundColor: newValue.color
+                        ))
                     },
                     onCancel: {
                         mode = .idle
@@ -76,13 +98,20 @@ struct FoodTagsEditorView: View {
             onTagEditing: { tagId in
                 if let tag = tags[id: tagId] {
                     FoodTagEditorView(
-                        tag: tag,
-                        onSave: { updatedTag in
-                            tags[id: tagId] = updatedTag
+                        tag: FoodTagEditorView.TagValue(
+                            name: tag.name,
+                            color: tag.backgroundColor
+                        ),
+                        onSave: { newValue in
+                            tags[id: tagId]?.onUpdate(Tag.Update(
+                                name: newValue.name,
+                                backgroundColor: newValue.color
+                            ))
+
                             mode = .idle
                         },
                         onDelete:  {
-                            tags[id: tagId] = nil
+                            tags[id: tagId]?.onDelete()
                             mode = .idle
                         }
                     )
@@ -94,51 +123,36 @@ struct FoodTagsEditorView: View {
                 }
             },
 
-            footer: {
-                TagsLayout(tags: tags.filter { $0.id != mode.editingTag }) { tag in
-                    EditableTagView(
-                        tag: tag,
+            tagCollection: tags
+                .filter { $0.id != mode.editingTag }
+                .map { tag in
+                    EditableFoodTagView(
+                        name: tag.name,
+                        backgroundColor: tag.backgroundColor,
                         onEdit: {
                             mode = .tagEditing(tag.id)
                         },
                         onDelete: {
-                            tags.removeAll(where: { $0.id == tag.id })
+                            tag.onDelete()
                         }
                     )
                 }
-            }
         )
     }
 }
 
 private extension FoodTagsEditorView {
-    struct TagsLayout<Content: View>: View {
-        let tags: [Food.Tag]
-        let content: (Food.Tag) -> Content
-
-        var body: some View {
-            if !tags.isEmpty {
-                FlowLayout(itemSpacing: 8, lineSpacing: 8) {
-                    ForEach(tags) { tag in
-                        content(tag)
-                    }
-                }
-                .animation(.default, value: tags.map(\.id))
-            }
-        }
-    }
-
     struct Layout<
         IdleContent: View,
         TagCreationContent: View,
         TagEditingContent: View,
-        FooterContent: View
+        TagContent: View
     >: View {
         let mode: Mode
         @ViewBuilder var onIdle: IdleContent
         @ViewBuilder var onTagCreation: TagCreationContent
-        @ViewBuilder var onTagEditing: (Food.Tag.ID) -> TagEditingContent
-        @ViewBuilder var footer: FooterContent
+        @ViewBuilder var onTagEditing: (Tag.ID) -> TagEditingContent
+        let tagCollection: ContentCollection<[Tag], Tag.ID, TagContent>
 
         var body: some View {
             VStack(alignment: .leading, spacing: 16) {
@@ -151,7 +165,12 @@ private extension FoodTagsEditorView {
                     onTagEditing(tagId)
                 }
 
-                footer
+                if !tagCollection.data.isEmpty {
+                    FlowLayout(itemSpacing: 8, lineSpacing: 8) {
+                        ForEach(tagCollection)
+                    }
+                    .animation(.default, value: tagCollection.data.map(\.id))
+                }
             }
         }
     }
@@ -159,19 +178,19 @@ private extension FoodTagsEditorView {
 
 struct FoodTagsEditorView_Previews: PreviewProvider {
     struct Example: View {
-        @State var tags: [Food.Tag] = [
-            Food.Tag(name: "ONE", backgroundColor: .red),
-            Food.Tag(name: "TWO", backgroundColor: .clear),
-            Food.Tag(name: "THREE", backgroundColor: .blue),
-            Food.Tag(name: "FOUR", backgroundColor: .yellow),
-            Food.Tag(name: "FIVE", backgroundColor: .clear),
-            Food.Tag(name: "SIX", backgroundColor: .clear),
-            Food.Tag(name: "SEVEN", backgroundColor: .clear),
+        @State var tags: [FoodTagsEditorView.Tag] = [
+            FoodTagsEditorView.Tag(id: 1, name: "ONE", backgroundColor: .red, onUpdate: { _ in }, onDelete: { }),
+            FoodTagsEditorView.Tag(id: 1, name: "TWO", backgroundColor: .clear, onUpdate: { _ in }, onDelete: { }),
+            FoodTagsEditorView.Tag(id: 1, name: "THREE", backgroundColor: .blue, onUpdate: { _ in }, onDelete: { }),
+            FoodTagsEditorView.Tag(id: 1, name: "FOUR", backgroundColor: .yellow, onUpdate: { _ in }, onDelete: { }),
+            FoodTagsEditorView.Tag(id: 1, name: "FIVE", backgroundColor: .clear, onUpdate: { _ in }, onDelete: { }),
+            FoodTagsEditorView.Tag(id: 1, name: "SIX", backgroundColor: .clear, onUpdate: { _ in }, onDelete: { }),
+            FoodTagsEditorView.Tag(id: 1, name: "SEVEN", backgroundColor: .clear, onUpdate: { _ in }, onDelete: { }),
         ]
 
         var body: some View {
             Form {
-                FoodTagsEditorView(tags: $tags)
+                FoodTagsEditorView(tags: tags, onAdd: { _ in })
             }
         }
     }

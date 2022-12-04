@@ -1,5 +1,5 @@
 //
-//  AddTagButton.swift
+//  AddFoodTagButton.swift
 //  TasteAssistant
 //
 //  Created by Ernest Babayan on 28.11.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddTagButton: View {
+struct AddFoodTagButton: View {
     let action: () -> Void
 
     var body: some View {

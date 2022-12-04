@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct FoodTagCreatorView: View {
-    let onSubmit: (Food.Tag) -> Void
+    let onSubmit: (TagValue) -> Void
     var onCancel: () -> Void = {}
+
+    struct TagValue {
+        let name: String
+        let color: Color
+    }
 
     @State var name: String = ""
     @State var color: Color = .clear
@@ -25,12 +30,7 @@ struct FoodTagCreatorView: View {
                     .onSubmit {
                         guard !name.isEmpty else { return }
 
-                        let newTag = Food.Tag(
-                            name: name,
-                            backgroundColor: color
-                        )
-
-                        onSubmit(newTag)
+                        onSubmit(TagValue(name: name, color: color))
 
                         clear()
                         fieldFocus = true
@@ -51,7 +51,7 @@ struct FoodTagCreatorView: View {
             }
         )
         .onChange(of: fieldFocus) { isFocused in
-            // BUG
+            #warning("Тут иногда баг появляется")
             if !isFocused && name.isEmpty {
                 onCancel()
             }

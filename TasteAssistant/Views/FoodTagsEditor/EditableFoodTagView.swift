@@ -1,5 +1,5 @@
 //
-//  EditableTagView.swift
+//  EditableFoodTagView.swift
 //  TasteAssistant
 //
 //  Created by Ernest Babayan on 28.11.2022.
@@ -7,29 +7,30 @@
 
 import SwiftUI
 
-struct EditableTagView: View {
-    let tag: Food.Tag
+struct EditableFoodTagView: View {
+    let name: String
+    let backgroundColor: Color
     let onEdit: () -> Void
     let onDelete: () -> Void
 
     var body: some View {
         Layout(
             label: {
-                Text(tag.name).onTapGesture(perform: onEdit)
+                Text(name).onTapGesture(perform: onEdit)
             },
 
             accessory: {
-                RemoveTagButton(action: onDelete)
+                RemoveFoodTagButton(action: onDelete)
             },
 
             background: {
-                TagBackground(color: tag.backgroundColor)
+                TagBackground(color: backgroundColor)
             }
         )
     }
 }
 
-private extension EditableTagView {
+private extension EditableFoodTagView {
     struct Layout<
         TagLabel: View,
         TagAccessory: View,
@@ -55,13 +56,15 @@ private extension EditableTagView {
 struct EditableTagPreviewProvider_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            EditableTagView(
-                tag: Food.Tag(name: "NAME", backgroundColor: Color.clear),
+            EditableFoodTagView(
+                name: "NAME",
+                backgroundColor: .clear,
                 onEdit: {},
                 onDelete: {}
             )
-            EditableTagView(
-                tag: Food.Tag(name: "NAME", backgroundColor: Color.red),
+            EditableFoodTagView(
+                name: "NAME",
+                backgroundColor: .red,
                 onEdit: {},
                 onDelete: {}
             )

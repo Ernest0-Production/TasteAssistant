@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct FoodsRowsView: View {
-    @Environment(\.foods) @Binding var foodsTable
+    let foods: [Food]
 
-    private(set) var onTap: (Food) -> Void = { _ in }
-
-    var sortedFoods: [Food] {
-        foodsTable.all().sorted { lhs, rhs in
-            lhs.name > rhs.name
-        }
+    struct Food: Identifiable {
+        let id: AnyHashable
+        let title: String
+        let tags: [FoodRowView.Tag]
+        let onTap: () -> Void
     }
 
     var body: some View {
-        ForEach(sortedFoods) { food in
-            FoodRowView(food: food)
-                .listRowInsets(EdgeInsets())
-                .tag(food.id)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .contentShape(Rectangle()) // Для того чтоб срабатывал обработчик на прозрачном контенте
-                .onTapGesture {
-                    onTap(food)
-                }
+        ForEach(foods) { food in
+            FoodRowView(
+                title: food.title,
+                tags: food.tags
+            )
+            .listRowInsets(EdgeInsets())
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle()) // Для того чтоб срабатывал обработчик на прозрачном контенте
+            .tag(food.id)
+            .onTapGesture(perform: food.onTap)
         }
     }
 }

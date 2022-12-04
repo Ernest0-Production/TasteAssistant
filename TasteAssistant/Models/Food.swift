@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct Food: Identifiable {
-    var id: String { name }
+    let id = UUID()
 
     var name: String
 
     var tags: Set<Tag.ID>
 
     struct Tag: Identifiable, Hashable {
-        var id: String { name }
+        let id = UUID()
 
-        let name: String
-        let backgroundColor: Color
+        var name: String
+        
+        var backgroundColor: Color
     }
 }

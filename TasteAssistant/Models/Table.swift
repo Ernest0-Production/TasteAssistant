@@ -22,12 +22,25 @@ struct Table<Element: Identifiable> {
         AnyCollection(dict.values)
     }
 
-    subscript(id elementId: Element.ID) -> Element? {
-        dict[elementId]
+    func element(for id: Element.ID) -> Element? {
+        dict[id]
     }
 
     mutating func insert(_ element: Element) {
         dict[element.id] = element
+    }
+
+    @discardableResult
+    mutating func remove(id elementId: Element.ID) -> Element? {
+        let element = dict[elementId]
+
+        dict.removeValue(forKey: elementId)
+
+        return element
+    }
+
+    mutating func removeAll() {
+        dict.removeAll()
     }
 
     func contains(_ element: Element) -> Bool {
@@ -36,7 +49,26 @@ struct Table<Element: Identifiable> {
 }
 
 extension Table {
+    subscript(id elementId: Element.ID) -> Element? {
+        dict[elementId]
+    }
+
     mutating func insert(_ elements: any Sequence<Element> = []) {
         elements.forEach { insert($0) }
+    }
+
+    @discardableResult
+    mutating func update(
+        id elementId: Element.ID,
+        _ transform: (inout Element) -> Void
+    ) -> Element? {
+        guard var element = self[id: elementId] else {
+            return nil
+        }
+
+        transform(&element)
+        self.insert(element)
+
+        return element
     }
 }

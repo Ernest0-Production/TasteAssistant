@@ -9,14 +9,19 @@ import SwiftUI
 
 @main
 struct TasteAssistantApp: App {
-    @State var foodsTable = Samples.foods
-    @State var tagsTable = Samples.tags
+    @State var foodTable = Samples.foods {
+        didSet {
+            #warning("Грузить откуда то данные")
+        }
+    }
+
+    @State var tagTable = Samples.tags
 
     var body: some Scene {
         WindowGroup {
             HomeView()
-                .environment(\.foods, $foodsTable)
-                .environment(\.tags, $tagsTable)
+                .environment(\.foods, $foodTable)
+                .environment(\.tags, $tagTable)
         }
     }
 }
@@ -28,15 +33,16 @@ enum Samples {
         Food(
             name: "APPLE",
             tags: [
-                "asd",
-                "dasds"
+                Samples.tags.all().randomElement()!.id,
+                Samples.tags.all().randomElement()!.id,
             ]
         ),
 
         Food(
             name: "BANANA",
             tags: [
-                "wqew"
+                Samples.tags.all().randomElement()!.id,
+                Samples.tags.all().randomElement()!.id,
             ]
         )
     ])

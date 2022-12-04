@@ -8,16 +8,26 @@
 import SwiftUI
 
 struct FoodEditorView: View {
-    @Environment(\.foods) @Binding var foodsTable
-    @Environment(\.tags) @Binding var tagsTable
-
     let food: Food
-    let onSave: (Food) -> Void
-    let onDelete: () -> Void
-    let onCancel: () -> Void
+    let onComplete: () -> Void
+
+    @Environment(\.foods) @Binding var foodTable
+    @Environment(\.tags) @Binding var tagTable
 
     @State private var foodName: String = ""
-    @State private var tags: [Food.Tag] = []
+    @State private var tags: [TemporaryTag] = []
+
+    enum TemporaryTag {
+        case existed(Food.Tag)
+
+        case new(New)
+
+        struct New: Identifiable {
+            let id = UUID()
+            var name: String
+            var backgroundColor: Color
+        }
+    }
 
     @State private var isConfirmCancellationPresented = false
     @State private var isConfirmDeletionPresented = false
@@ -45,8 +55,16 @@ struct FoodEditorView: View {
                 .navigationTitle("Edit Food")
 
                 Section("tags") {
-                    FoodTagsEditorView(tags: $tags)
-                        .focused($fieldFocus, equals: Field.tagName)
+                    FoodTagsEditorView(
+                        tags: Array(temporaryTags: $tags),
+                        onAdd: { newValue in
+                            tags.insert(
+                                .new(TemporaryTag.New(tag: newValue)),
+                                at: .zero
+                            )
+                        }
+                    )
+                    .focused($fieldFocus, equals: Field.tagName)
                 }
 
                 DeleteFoodButton {
@@ -63,15 +81,28 @@ struct FoodEditorView: View {
 
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        let updatedFood = Food(
-                            name: foodName,
-                            tags: Set(tags.map(\.id))
-                        )
+                        let foodTags: [Food.Tag] = tags.map { temporaryTag in
+                            switch temporaryTag {
+                            case let .existed(existedTag):
+                                return existedTag
 
-                        foodsTable.insert(updatedFood)
-                        tagsTable.insert(tags)
+                            case let .new(newTag):
+                                return Food.Tag(
+                                    name: newTag.name,
+                                    backgroundColor: newTag.backgroundColor
+                                )
+                            }
+                        }
 
-                        onSave(updatedFood)
+                        tagTable.insert(foodTags)
+
+                        var updatedFood = food
+                        updatedFood.name = foodName
+                        updatedFood.tags = Set(foodTags.map(\.id))
+
+                        foodTable.insert(updatedFood)
+
+                        onComplete()
                     }
                     .disabled(foodName == "")
                 }
@@ -79,14 +110,17 @@ struct FoodEditorView: View {
         )
         .onFirstAppear {
             foodName = food.name
-            tags = food.tags.compactMap { tagsTable[id: $0]}
+            tags = food.tags
+                .compactMap(tagTable.element)
+                .sorted(by: \.name.localizedLowercase)
+                .map(TemporaryTag.existed)
         }
         .confirmationDialog(
             "Confirm deletion",
             isPresented: $isConfirmDeletionPresented,
             actions: {
                 Button("Delete", role: .destructive) {
-                    onDelete()
+                    onComplete()
                 }
             }
         )
@@ -95,7 +129,7 @@ struct FoodEditorView: View {
             isPresented: $isConfirmCancellationPresented,
             actions: {
                 Button("Yes", role: .destructive) {
-                    onCancel()
+                    onComplete()
                 }
             },
             message: {
@@ -123,6 +157,93 @@ private extension FoodEditorView {
                 .toolbar {
                     toolbar
                 }
+            }
+        }
+    }
+}
+
+private extension FoodTagsEditorView.Tag {
+    init(
+        existedTag: Food.Tag,
+        onUpdate: @escaping (Food.Tag) -> Void,
+        onDelete: @escaping () -> Void
+    ) {
+        self.init(
+            id: existedTag.id,
+            name: existedTag.name,
+            backgroundColor: existedTag.backgroundColor,
+            onUpdate: { update in
+                var updatedTag = existedTag
+
+                updatedTag.name = update.name
+                updatedTag.backgroundColor = update.backgroundColor
+
+                onUpdate(updatedTag)
+            },
+            onDelete: onDelete
+        )
+    }
+
+    init(
+        newTag: FoodEditorView.TemporaryTag.New,
+        onUpdate: @escaping (FoodEditorView.TemporaryTag.New) -> Void,
+        onDelete: @escaping () -> Void
+    ) {
+        self.init(
+            id: newTag.id,
+            name: newTag.name,
+            backgroundColor: newTag.backgroundColor,
+            onUpdate: { update in
+                var updatedTag = newTag
+
+                updatedTag.name = update.name
+                updatedTag.backgroundColor = update.backgroundColor
+
+                onUpdate(updatedTag)
+            },
+            onDelete: onDelete
+        )
+    }
+}
+
+private extension FoodEditorView.TemporaryTag.New {
+    init(tag: FoodTagsEditorView.Tag.New) {
+        self.init(
+            name: tag.name,
+            backgroundColor: tag.backgroundColor
+        )
+    }
+
+    func asFoodTag() -> Food.Tag {
+        Food.Tag(name: name, backgroundColor: backgroundColor)
+    }
+}
+
+private extension Array where Element == FoodTagsEditorView.Tag {
+    init(temporaryTags tags: Binding<[FoodEditorView.TemporaryTag]>) {
+        self = tags.wrappedValue.indices.map { tagIndex in
+            switch tags.wrappedValue[tagIndex] {
+            case let .existed(existedTag):
+                return FoodTagsEditorView.Tag(
+                    existedTag: existedTag,
+                    onUpdate: { newValue in
+                        tags.wrappedValue[tagIndex] = .existed(newValue)
+                    },
+                    onDelete: {
+                        tags.wrappedValue.remove(at: tagIndex)
+                    }
+                )
+
+            case let .new(newTag):
+                return FoodTagsEditorView.Tag(
+                    newTag: newTag,
+                    onUpdate: { newValue in
+                        tags.wrappedValue[tagIndex] = .new(newValue)
+                    },
+                    onDelete: {
+                        tags.wrappedValue.remove(at: tagIndex)
+                    }
+                )
             }
         }
     }

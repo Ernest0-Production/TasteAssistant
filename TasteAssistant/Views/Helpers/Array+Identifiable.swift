@@ -22,4 +22,18 @@ extension Array where Element: Identifiable {
             }
         }
     }
+
+    @discardableResult
+    mutating func update(
+        id elementId: Element.ID,
+        _ transform: (inout Element) -> Void
+    ) -> Element? {
+        guard let index = firstIndex(where: { $0.id == elementId }) else {
+            return nil
+        }
+
+        transform(&self[index])
+
+        return self[index]
+    }
 }

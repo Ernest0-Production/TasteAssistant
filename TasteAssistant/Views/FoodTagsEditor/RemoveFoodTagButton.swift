@@ -1,5 +1,5 @@
 //
-//  RemoveTagButton.swift
+//  RemoveFoodTagButton.swift
 //  TasteAssistant
 //
 //  Created by Ernest Babayan on 28.11.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RemoveTagButton: View {
+struct RemoveFoodTagButton: View {
     let action: () -> Void
 
     var body: some View {

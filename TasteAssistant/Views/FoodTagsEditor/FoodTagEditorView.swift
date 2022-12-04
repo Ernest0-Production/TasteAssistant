@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct FoodTagEditorView: View {
-    let tag: Food.Tag
-    let onSave: (Food.Tag) -> Void
+    let tag: TagValue
+    let onSave: (TagValue) -> Void
     let onDelete: () -> Void
+
+    struct TagValue {
+        let name: String
+        let color: Color
+    }
 
     @State var name: String = ""
     @State var color: Color = .clear
@@ -26,9 +31,9 @@ struct FoodTagEditorView: View {
                     .onSubmit {
                         guard !name.isEmpty else { return }
 
-                        let updatedTag = Food.Tag(
+                        let updatedTag = TagValue(
                             name: name,
-                            backgroundColor: color
+                            color: color
                         )
 
                         onSave(updatedTag)
@@ -41,7 +46,7 @@ struct FoodTagEditorView: View {
                 ColorPicker("Tag color", selection: $color)
                     .labelsHidden()
 
-                RemoveTagButton {
+                RemoveFoodTagButton {
                     onDelete()
                     clear()
                 }
@@ -57,7 +62,7 @@ struct FoodTagEditorView: View {
         )
         .onFirstAppear {
             name = tag.name
-            color = tag.backgroundColor
+            color = tag.color
         }
     }
 
