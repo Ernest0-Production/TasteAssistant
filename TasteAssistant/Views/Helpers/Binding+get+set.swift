@@ -18,7 +18,10 @@ extension Binding {
     func set(_ set: @escaping (Value) -> Void) -> Binding {
         Binding(
             get: { wrappedValue },
-            set: { set($0) }
+            set: { newValue, transaction in
+                self.transaction(transaction).wrappedValue = newValue
+                set(newValue)
+            }
         )
     }
 

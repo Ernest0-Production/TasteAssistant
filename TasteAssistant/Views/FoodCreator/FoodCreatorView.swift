@@ -84,6 +84,7 @@ struct FoodCreatorView: View {
                         tagTable.insert(foodTags)
 
                         foodTable.insert(Food(
+                            id: .new,
                             name: foodName,
                             tags: Set(foodTags.map(\.id))
                         ))
@@ -184,7 +185,7 @@ private extension FoodCreatorView.TemporaryTag.New {
     }
 
     func asFoodTag() -> Food.Tag {
-        Food.Tag(name: name, backgroundColor: backgroundColor)
+        Food.Tag(id: .new, name: name, backgroundColor: backgroundColor)
     }
 }
 

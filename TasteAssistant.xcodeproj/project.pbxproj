@@ -14,6 +14,13 @@
 		F95E8D5D293A84B5000DDBC8 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D5C293A84B5000DDBC8 /* Table.swift */; };
 		F95E8D5F293BCF5B000DDBC8 /* ContentCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D5E293BCF5B000DDBC8 /* ContentCollection.swift */; };
 		F95E8D61293BD0E3000DDBC8 /* Collection+sorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D60293BD0E3000DDBC8 /* Collection+sorted.swift */; };
+		F95E8D64293D100C000DDBC8 /* Codable+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D63293D100C000DDBC8 /* Codable+JSON.swift */; };
+		F95E8D6A293D1584000DDBC8 /* Color+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D69293D1584000DDBC8 /* Color+Codable.swift */; };
+		F95E8D6C293D161C000DDBC8 /* FoodsJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D6B293D161C000DDBC8 /* FoodsJSON.swift */; };
+		F95E8D6E293D1D6A000DDBC8 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D6D293D1D6A000DDBC8 /* URLs.swift */; };
+		F95E8D70293D1DBA000DDBC8 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D6F293D1DBA000DDBC8 /* UUID.swift */; };
+		F95E8D73293D1E37000DDBC8 /* FoodsEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D72293D1E37000DDBC8 /* FoodsEnvironmentKey.swift */; };
+		F95E8D75293D1E60000DDBC8 /* FoodTagsEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E8D74293D1E60000DDBC8 /* FoodTagsEnvironmentKey.swift */; };
 		F97A914A29336B730095F585 /* TasteAssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A914929336B730095F585 /* TasteAssistantApp.swift */; };
 		F97A914C29336B730095F585 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A914B29336B730095F585 /* HomeView.swift */; };
 		F97A914E29336B740095F585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F97A914D29336B740095F585 /* Assets.xcassets */; };
@@ -44,6 +51,13 @@
 		F95E8D5C293A84B5000DDBC8 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		F95E8D5E293BCF5B000DDBC8 /* ContentCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCollection.swift; sourceTree = "<group>"; };
 		F95E8D60293BD0E3000DDBC8 /* Collection+sorted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+sorted.swift"; sourceTree = "<group>"; };
+		F95E8D63293D100C000DDBC8 /* Codable+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+JSON.swift"; sourceTree = "<group>"; };
+		F95E8D69293D1584000DDBC8 /* Color+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Codable.swift"; sourceTree = "<group>"; };
+		F95E8D6B293D161C000DDBC8 /* FoodsJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsJSON.swift; sourceTree = "<group>"; };
+		F95E8D6D293D1D6A000DDBC8 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
+		F95E8D6F293D1DBA000DDBC8 /* UUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUID.swift; sourceTree = "<group>"; };
+		F95E8D72293D1E37000DDBC8 /* FoodsEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsEnvironmentKey.swift; sourceTree = "<group>"; };
+		F95E8D74293D1E60000DDBC8 /* FoodTagsEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTagsEnvironmentKey.swift; sourceTree = "<group>"; };
 		F97A914629336B730095F585 /* TasteAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F97A914929336B730095F585 /* TasteAssistantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteAssistantApp.swift; sourceTree = "<group>"; };
 		F97A914B29336B730095F585 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -120,6 +134,44 @@
 			path = FoodTagsEditor;
 			sourceTree = "<group>";
 		};
+		F95E8D62293D0FF9000DDBC8 /* Infrastracture */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Infrastracture;
+			sourceTree = "<group>";
+		};
+		F95E8D65293D11F9000DDBC8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F95E8D63293D100C000DDBC8 /* Codable+JSON.swift */,
+				F95E8D6D293D1D6A000DDBC8 /* URLs.swift */,
+				F95E8D4E2937F88F000DDBC8 /* Set+insertOrRemoveIfExist.swift */,
+				F95E8D60293BD0E3000DDBC8 /* Collection+sorted.swift */,
+				F97A917D293546200095F585 /* Array+Identifiable.swift */,
+				F95E8D69293D1584000DDBC8 /* Color+Codable.swift */,
+				F95E8D6F293D1DBA000DDBC8 /* UUID.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F95E8D66293D14BA000DDBC8 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				F95E8D6B293D161C000DDBC8 /* FoodsJSON.swift */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		F95E8D71293D1DF5000DDBC8 /* Environments */ = {
+			isa = PBXGroup;
+			children = (
+				F95E8D72293D1E37000DDBC8 /* FoodsEnvironmentKey.swift */,
+				F95E8D74293D1E60000DDBC8 /* FoodTagsEnvironmentKey.swift */,
+			);
+			path = Environments;
+			sourceTree = "<group>";
+		};
 		F97A913D29336B730095F585 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +191,8 @@
 		F97A914829336B730095F585 /* TasteAssistant */ = {
 			isa = PBXGroup;
 			children = (
+				F95E8D65293D11F9000DDBC8 /* Helpers */,
+				F95E8D62293D0FF9000DDBC8 /* Infrastracture */,
 				F97A915A29339D850095F585 /* Views */,
 				F97A915929339D810095F585 /* Models */,
 				F97A914929336B730095F585 /* TasteAssistantApp.swift */,
@@ -159,6 +213,7 @@
 		F97A915929339D810095F585 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F95E8D66293D14BA000DDBC8 /* JSON */,
 				F97A915B29339D920095F585 /* Food.swift */,
 				F95E8D5C293A84B5000DDBC8 /* Table.swift */,
 			);
@@ -168,6 +223,7 @@
 		F97A915A29339D850095F585 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F95E8D71293D1DF5000DDBC8 /* Environments */,
 				F95E8D5529392C00000DDBC8 /* FoodTagsEditor */,
 				F95E8D5429392BB4000DDBC8 /* FoodEditor */,
 				F95E8D5329392B23000DDBC8 /* FoodCreator */,
@@ -190,12 +246,9 @@
 		F97A917C293546190095F585 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F97A917D293546200095F585 /* Array+Identifiable.swift */,
 				F97A917F29354DB60095F585 /* Binding+get+set.swift */,
-				F95E8D4E2937F88F000DDBC8 /* Set+insertOrRemoveIfExist.swift */,
 				F95E8D5A29394A44000DDBC8 /* View+onFirstAppear.swift */,
 				F95E8D5E293BCF5B000DDBC8 /* ContentCollection.swift */,
-				F95E8D60293BD0E3000DDBC8 /* Collection+sorted.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -274,12 +327,16 @@
 				F95E8D5F293BCF5B000DDBC8 /* ContentCollection.swift in Sources */,
 				F97A914C29336B730095F585 /* HomeView.swift in Sources */,
 				F97A9171293538850095F585 /* FoodTagCreatorView.swift in Sources */,
+				F95E8D73293D1E37000DDBC8 /* FoodsEnvironmentKey.swift in Sources */,
 				F97A916029339DAE0095F585 /* FoodTagView.swift in Sources */,
 				F97A916629339DD60095F585 /* FoodTagsEditorView.swift in Sources */,
+				F95E8D70293D1DBA000DDBC8 /* UUID.swift in Sources */,
 				F95E8D4F2937F88F000DDBC8 /* Set+insertOrRemoveIfExist.swift in Sources */,
 				F97A918029354DB60095F585 /* Binding+get+set.swift in Sources */,
 				F95E8D5B29394A44000DDBC8 /* View+onFirstAppear.swift in Sources */,
 				F95E8D5929393536000DDBC8 /* TagBackground.swift in Sources */,
+				F95E8D75293D1E60000DDBC8 /* FoodTagsEnvironmentKey.swift in Sources */,
+				F95E8D6A293D1584000DDBC8 /* Color+Codable.swift in Sources */,
 				F95E8D61293BD0E3000DDBC8 /* Collection+sorted.swift in Sources */,
 				F97A915C29339D920095F585 /* Food.swift in Sources */,
 				F97A9173293538960095F585 /* FoodTagEditorView.swift in Sources */,
@@ -288,13 +345,16 @@
 				F97A9175293539650095F585 /* RemoveFoodTagButton.swift in Sources */,
 				F97A916829339DE60095F585 /* AddFoodButton.swift in Sources */,
 				F9E0EB51293554930070DBA3 /* DeleteFoodButton.swift in Sources */,
+				F95E8D6E293D1D6A000DDBC8 /* URLs.swift in Sources */,
 				F95E8D5D293A84B5000DDBC8 /* Table.swift in Sources */,
 				F95E8D5229392AED000DDBC8 /* FoodsRowsView.swift in Sources */,
 				F97A915E29339DA10095F585 /* FoodRowView.swift in Sources */,
+				F95E8D64293D100C000DDBC8 /* Codable+JSON.swift in Sources */,
 				F97A917B293542740095F585 /* FoodEditorView.swift in Sources */,
 				F97A914A29336B730095F585 /* TasteAssistantApp.swift in Sources */,
 				F97A9177293539710095F585 /* AddFoodTagButton.swift in Sources */,
 				F97A916229339DBE0095F585 /* FoodCreatorView.swift in Sources */,
+				F95E8D6C293D161C000DDBC8 /* FoodsJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

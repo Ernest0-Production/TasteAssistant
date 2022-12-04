@@ -10,7 +10,6 @@ import SwiftUI
 #warning("Импортировать из файла данные")
 #warning("Кнопка группировки по тэгам")
 
-
 struct HomeView: View {
     @Environment(\.foods) @Binding private var foodTable
     @Environment(\.tags) @Binding private var tagTable

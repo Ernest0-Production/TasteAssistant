@@ -68,6 +68,7 @@ struct FoodEditorView: View {
                 }
 
                 DeleteFoodButton {
+                    foodTable.remove(id: food.id)
                     isConfirmDeletionPresented = true
                 }
             },
@@ -87,15 +88,12 @@ struct FoodEditorView: View {
                                 return existedTag
 
                             case let .new(newTag):
-                                return Food.Tag(
-                                    name: newTag.name,
-                                    backgroundColor: newTag.backgroundColor
-                                )
+                                return newTag.asFoodTag()
                             }
                         }
 
                         tagTable.insert(foodTags)
-
+                        
                         var updatedFood = food
                         updatedFood.name = foodName
                         updatedFood.tags = Set(foodTags.map(\.id))
@@ -215,7 +213,7 @@ private extension FoodEditorView.TemporaryTag.New {
     }
 
     func asFoodTag() -> Food.Tag {
-        Food.Tag(name: name, backgroundColor: backgroundColor)
+        Food.Tag(id: .new, name: name, backgroundColor: backgroundColor)
     }
 }
 
